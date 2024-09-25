@@ -1,0 +1,19 @@
+.admin-container {
+    height: 82vh;
+    margin: 10px;
+    border: 1px solid #555;
+    /* The background property is added to clearly distinguish the borders between drawer and main
+       content */
+    background:transparent;
+  }
+
+.admin-left{
+    width: 10vw;
+}
+
+.content-area{
+    color: black;
+    background-color: transparent;
+    padding-left: 1vw;
+    padding-top: 1vw;
+}
