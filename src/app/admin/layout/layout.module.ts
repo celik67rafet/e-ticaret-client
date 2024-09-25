@@ -4,9 +4,6 @@ import { LayoutComponent } from './layout.component';
 import { ComponentsModule } from './components/components.module';
 import { RouterModule } from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatButtonModule} from '@angular/material/button';
-
-
 
 @NgModule({
   declarations: [

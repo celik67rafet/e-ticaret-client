@@ -4,7 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "strict": true,
+    "strict": false, // bu özellik true olursa değişkenlerin varsayılan değerlerini ister. false yaparsan varsayılan değer istemez.
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
