@@ -1,18 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AlertifyService, MessageType, NotPosition } from '../../../services/admin/alertify.service';
+import { BaseComponent, SpinnerType } from '../../../base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends BaseComponent implements OnInit,AfterViewInit {
 
   private notifications: any[] = []; // Bildirimleri saklamak için bir dizi
 
-  constructor(private alertify: AlertifyService) {}
+  constructor(private alertify: AlertifyService, spinner: NgxSpinnerService) 
+  {
+    super( spinner );
+  }
+  ngAfterViewInit(): void {
 
-  ngOnInit(): void {}
+    setTimeout(() => {
+      this.hideSpinner( SpinnerType.ballSpin );
+    },1500);    
+
+  }
+
+  ngOnInit(): void 
+  {
+    this.showSpinner( SpinnerType.ballSpin );
+  }
+
 
   // NOTIFICATION SERVİCE TEST START ========================
 
