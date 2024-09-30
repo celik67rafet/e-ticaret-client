@@ -14,21 +14,12 @@ export class OrderComponent extends BaseComponent implements OnInit,AfterViewIni
  
  ngAfterViewInit(): void {
 
-    setTimeout(() => {
-      this.hideSpinner(SpinnerType.ballSpin);
-    },1500);
+    
 
 }
   
  ngOnInit(): void {
 
-    // this.spinner.show("s1");
-
-    // setTimeout(() => {
-    //   this.spinner.hide("s1");
-    // },3000);
-
-    this.showSpinner( SpinnerType.ballSpin );
 
   }
 

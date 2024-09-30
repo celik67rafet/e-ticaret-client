@@ -10,17 +10,11 @@ export class ProductsComponent extends BaseComponent implements OnInit,AfterView
   
   
   ngAfterViewInit(): void {
-  
-    setTimeout( () => {
-
-      this.hideSpinner( SpinnerType.ballSpin );
-
-    },1500 );
 
   }
+  
   ngOnInit(): void {
 
-    this.showSpinner( SpinnerType.ballSpin );
 
   }
 

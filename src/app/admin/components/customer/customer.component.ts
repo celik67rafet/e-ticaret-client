@@ -16,15 +16,9 @@ export class CustomerComponent extends BaseComponent implements OnInit , AfterVi
   }
   ngAfterViewInit(): void {
 
-      setTimeout(() => {
-        this.hideSpinner( SpinnerType.ballSpin );
-      },1500);
-
   }
 
   ngOnInit(): void {
-
-    this.showSpinner( SpinnerType.ballSpin );
 
   }
 

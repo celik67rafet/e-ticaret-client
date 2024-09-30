@@ -17,16 +17,11 @@ export class DashboardComponent extends BaseComponent implements OnInit,AfterVie
     super( spinner );
   }
   ngAfterViewInit(): void {
-
-    setTimeout(() => {
-      this.hideSpinner( SpinnerType.ballSpin );
-    },1500);    
-
   }
 
   ngOnInit(): void 
   {
-    this.showSpinner( SpinnerType.ballSpin );
+    
   }
 
 

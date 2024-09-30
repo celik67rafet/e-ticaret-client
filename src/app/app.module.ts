@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ToastrModule } from 'ngx-toastr'
 import { NgxSpinnerModule } from "ngx-spinner";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,17 @@ import { NgxSpinnerModule } from "ngx-spinner";
     AdminModule,
     UiModule,
     ToastrModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   bootstrap: [AppComponent],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: "baseUrl", useValue: "https://localhost:7171/api", multi: true },
+    // httpClientmodule yerine http interceptor destekleyen bu provider'ı kullanmamızı önerdi... 
+    // bununla da module olmadan çalışır.
+    provideHttpClient(
+      withInterceptorsFromDi()
+    )
   ]
 })
 export class AppModule { }

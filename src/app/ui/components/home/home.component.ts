@@ -19,14 +19,9 @@ export class HomeComponent extends BaseComponent implements OnInit, AfterViewIni
   }
   ngAfterViewInit(): void {
 
-    setTimeout(() => {
-      this.hideSpinner( SpinnerType.ballSpin );
-    },1500);
-
   }
   ngOnInit(): void {
 
-    this.showSpinner( SpinnerType.ballSpin )
 
   }
 
