@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { Create_Product } from '../../../../contracts/create_product';
 import { BaseComponent, SpinnerType } from '../../../../base/base.component';
@@ -24,6 +24,7 @@ export class CreateComponent extends BaseComponent implements OnInit,AfterViewIn
   ngAfterViewInit(): void {
   }
 
+  @Output() createdProduct : EventEmitter<Create_Product> = new EventEmitter();
 
   ngOnInit(): void {
   }
@@ -34,23 +35,35 @@ export class CreateComponent extends BaseComponent implements OnInit,AfterViewIn
 
     const create_product: Create_Product = new Create_Product();
 
+    
     create_product.name = name.value;
-    create_product.stock = parseInt(stock.value);
+    create_product.stock = stock.value;
     create_product.price = parseFloat( price.value );
-
+    
     this.productService.create( create_product, () => { 
       this.hideSpinner( SpinnerType.ballSpin ); 
       this.alertify.message( "Ürün Ekleme Başarılı!", {
-
+        
         messageType: MessageType.Success,
         position: NotPosition.Top,
         dismissOthers: true
-
+        
       } );
-
+      
       name.value = "";
       stock.value = '0';
       price.value = '0';
+      this.createdProduct.emit( create_product );
+
+    }, errorMessage => {
+
+      this.hideSpinner( SpinnerType.ballSpin );
+      this.alertify.message( errorMessage, {
+        dismissOthers: true,
+        messageType: MessageType.Error,
+        position: NotPosition.Top,
+        delay: 5
+      } );
 
     } );
   }

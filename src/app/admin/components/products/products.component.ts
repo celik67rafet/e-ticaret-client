@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { 
   BaseComponent, 
   // SpinnerType // spinner kullanmak için gerekli
  } from '../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { HttpClientService } from '../../../services/common/http-client.service';
+import { Create_Product } from '../../../contracts/create_product';
+import { ListComponent } from './list/list.component';
 
 @Component({
   selector: 'app-products',
@@ -14,10 +16,9 @@ import { HttpClientService } from '../../../services/common/http-client.service'
 })
 export class ProductsComponent extends BaseComponent implements OnInit, AfterViewInit {
   
-  /**
-   *
-   */
-  constructor( spinner: NgxSpinnerService, private httpClientService : HttpClientService ) {
+  @ViewChild( ListComponent ) listComponents : ListComponent;
+
+  constructor( spinner: NgxSpinnerService) {
     super( spinner );
     
   }
@@ -29,6 +30,13 @@ export class ProductsComponent extends BaseComponent implements OnInit, AfterVie
     // }, 1500);
 
   }
+
+  createdProduct( createdProduct: Create_Product ){
+    
+    this.listComponents.getProducts();
+
+  }
+
   ngOnInit(): void {
 
     // this.showSpinner( SpinnerType.ballSpin );

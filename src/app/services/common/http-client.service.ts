@@ -29,7 +29,7 @@ export class HttpClientService {
     }else
     {
 
-      url = `${this.url( requestParameter )}${id ? `/${id}` : "" }`;
+      url = `${this.url( requestParameter )}${id ? `/${id}` : "" }${ requestParameter.queryString ? `?${requestParameter.queryString}` : "" }`;
       
     }
 
@@ -46,7 +46,7 @@ export class HttpClientService {
       
     }else{
       
-      url = `${ this.url( requestParameter ) }`
+      url = `${ this.url( requestParameter ) }${ requestParameter.queryString ? `?${requestParameter.queryString}` : "" }`
       
     }
 
@@ -63,7 +63,7 @@ export class HttpClientService {
       
     }else{
       
-      url = `${ this.url( requestParameter ) }`
+      url = `${ this.url( requestParameter ) }${ requestParameter.queryString ? `?${requestParameter.queryString}` : "" }`
       
     }
 
@@ -81,7 +81,7 @@ export class HttpClientService {
       
     }else{
       
-      url = `${ this.url( requestParameter ) }${id ? `/${id}` : "" }`;
+      url = `${ this.url( requestParameter ) }${id ? `/${id}` : "" }${ requestParameter.queryString ? `?${requestParameter.queryString}` : "" }`;
       
     }
 
@@ -93,7 +93,7 @@ export class RequestParameters {
 
   controller?: string;
   action?: string;
-
+  queryString?: string;
   headers?: HttpHeaders;
   baseUrl?: string;
   fullEndPoint?: string;
