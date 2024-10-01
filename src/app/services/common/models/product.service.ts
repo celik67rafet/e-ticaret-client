@@ -3,7 +3,7 @@ import { HttpClientService } from '../http-client.service';
 import { Create_Product } from '../../../contracts/create_product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { List_Product } from '../../../contracts/list_product';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,26 +19,32 @@ export class ProductService {
       controller: "products"
       
     },product ).
-    subscribe( result => {
+    subscribe({
+      next: (result) => {
+        successCallback();
 
-      successCallback();
-      console.log( "başarılı", result );
+        console.log( "başarılı", result );
+      },
+      error: ( errorResponse: HttpErrorResponse ) => {
 
-    }, (errorResponse:HttpErrorResponse) => {
+        const error: Array<{ key: string, value: Array<string> }> = errorResponse.error;
 
-        const error: Array< { key:string, value:Array<string> } > = errorResponse.error;
-        
         let message = "";
 
-        error.forEach(data => {
-          data.value.forEach( (errorMessage) => {
-            message += `${errorMessage}<br>`;
+        error.forEach( data => {
+
+          data.value.forEach( ( errorMessage ) => {
+
+            message += `${ errorMessage } <br>`;
+
           } );
-        });
+
+        } );
 
         errorCallback( message );
 
-    } )
+      }
+    })
   }
 
   async read( page:number = 0, size:number = 10, successCallback?: () => void, errorCallback?: ( errorMessage:string ) => void ) : Promise<{ totalCount: number, products: List_Product[] }> { // dönüş türü burada gerekli olmasa da tür kontrolü açısında eklemek faydalı
@@ -54,6 +60,16 @@ export class ProductService {
         .catch( ( errorResponse: HttpErrorResponse ) => errorCallback( errorResponse.message ) )
 
       return await promiseData;
+
+  }
+
+  async delete( id: string )
+  {
+    const deleteObservable : Observable<any> = this.httpClientService.delete<any>({
+      controller:"products"
+    },id);
+
+     await firstValueFrom( deleteObservable );
 
   }
 }

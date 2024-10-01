@@ -31,9 +31,9 @@ export class ProductsComponent extends BaseComponent implements OnInit, AfterVie
 
   }
 
-  createdProduct( createdProduct: Create_Product ){
+  async createdProduct( createdProduct: Create_Product ){
     
-    this.listComponents.getProducts();
+    await this.listComponents.getProducts();
 
   }
 

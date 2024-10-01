@@ -6,6 +6,9 @@ import { BaseComponent, SpinnerType } from '../../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertifyService, MessageType, NotPosition } from '../../../../services/admin/alertify.service';
 import { MatPaginator } from '@angular/material/paginator';
+
+declare var $ : any;
+
 @Component({
   selector: 'app-list',
   standalone: false,
@@ -16,7 +19,7 @@ export class ListComponent extends BaseComponent implements OnInit,AfterViewInit
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['Id', 'Name', 'Stock', 'Price', 'CreatedDate', 'UpdatedDate'];
+  displayedColumns: string[] = ['Id', 'Name', 'Stock', 'Price', 'CreatedDate', 'UpdatedDate','Edit'];
   dataSource : MatTableDataSource<List_Product> = null;
 
   constructor( private productService: ProductService, spinner: NgxSpinnerService, private alertify: AlertifyService ) { super( spinner ) }
@@ -39,6 +42,8 @@ export class ListComponent extends BaseComponent implements OnInit,AfterViewInit
 
     }, errorMessage => {
 
+      this.hideSpinner( SpinnerType.ballSpin );
+
       this.alertify.message( errorMessage, {
 
         messageType: MessageType.Error,
@@ -46,8 +51,6 @@ export class ListComponent extends BaseComponent implements OnInit,AfterViewInit
         position: NotPosition.TopRight
   
       });
-      
-      this.hideSpinner( SpinnerType.ballSpin );
       
     } );
 
@@ -64,9 +67,3 @@ export class ListComponent extends BaseComponent implements OnInit,AfterViewInit
 
 }
 
-// p.Id,
-// p.Name,
-// p.Stock,
-// p.Price,
-// p.UpdatedDate,
-// p.CreatedDate

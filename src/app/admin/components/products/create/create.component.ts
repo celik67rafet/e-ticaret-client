@@ -41,7 +41,6 @@ export class CreateComponent extends BaseComponent implements OnInit,AfterViewIn
     create_product.price = parseFloat( price.value );
     
     this.productService.create( create_product, () => { 
-      this.hideSpinner( SpinnerType.ballSpin ); 
       this.alertify.message( "Ürün Ekleme Başarılı!", {
         
         messageType: MessageType.Success,
@@ -54,7 +53,8 @@ export class CreateComponent extends BaseComponent implements OnInit,AfterViewIn
       stock.value = '0';
       price.value = '0';
       this.createdProduct.emit( create_product );
-
+      this.hideSpinner( SpinnerType.ballSpin ); 
+      
     }, errorMessage => {
 
       this.hideSpinner( SpinnerType.ballSpin );
