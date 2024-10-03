@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ProductService } from '../../../../services/common/models/product.service';
 import { Create_Product } from '../../../../contracts/create_product';
 import { BaseComponent, SpinnerType } from '../../../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertifyService, MessageType, NotPosition } from '../../../../services/admin/alertify.service';
+import { FileUploadComponent, FileUploadOptions } from '../../../../services/common/file-upload/file-upload.component';
 
 @Component({
   selector: 'app-create',
@@ -13,12 +14,40 @@ import { AlertifyService, MessageType, NotPosition } from '../../../../services/
 })
 export class CreateComponent extends BaseComponent implements OnInit,AfterViewInit {
  
+  @ViewChild(FileUploadComponent) fileUploadComponent!: FileUploadComponent; // Bileşeni referans al
+
+  @Output() fileUploadOptions:Partial<FileUploadOptions> = {
+    controller: "products",
+    action: "upload",
+    explanation: "resimleri surukleyin veya seçin...",
+    isAdminPage: true,
+    accept: ".png, .jpg, .jpeg" 
+  }
+
   constructor( 
     private productService: ProductService,
     spinner: NgxSpinnerService,
     private alertify: AlertifyService
   ) {
     super( spinner );
+  }
+
+  uploadFiles(){
+
+    console.log( this.fileUploadComponent.files );
+
+    if( this.fileUploadComponent.files == undefined || this.fileUploadComponent.files.length == 0 ){
+
+      this.alertify.message("Lütfen Önce Resim Seçiniz!",{
+        messageType: MessageType.Notify,
+        position: NotPosition.TopRight,
+        delay: 3
+      })
+
+    }
+
+    this.fileUploadComponent.selectedFiles(this.fileUploadComponent.files);
+
   }
   
   ngAfterViewInit(): void {

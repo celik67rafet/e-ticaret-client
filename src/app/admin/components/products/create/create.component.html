@@ -15,3 +15,6 @@
     </mat-form-field>
 </div>
 <button mat-stroked-button class="btn" (click)="create( txtName, txtStock, txtPrice )">Ürün Ekle</button>
+<hr>
+<button class="mb-2" (click)="uploadFiles()" mat-stroked-button>Seçilen Resimleri Ekle</button>
+<app-file-upload [options]="fileUploadOptions"></app-file-upload>

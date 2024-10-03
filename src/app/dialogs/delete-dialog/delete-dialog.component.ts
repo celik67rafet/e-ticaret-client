@@ -1,21 +1,24 @@
 import { Component, Inject, inject, model } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { BaseDialog } from '../base-dialog';
 
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './delete-dialog.component.html',
   styleUrl: './delete-dialog.component.scss'
 })
-export class DeleteDialogComponent {
-
-  readonly dialogRef = inject(MatDialogRef<DeleteDialogComponent>);
-  // readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-  // readonly animal = model(this.data.animal);
+export class DeleteDialogComponent extends BaseDialog<DeleteDialogComponent> {
   
-  constructor( @Inject(MAT_DIALOG_DATA) public data: DeleteState.Yes ) {}
+  constructor( 
+    @Inject(MAT_DIALOG_DATA) public data: DeleteState.Yes,
+    dialogRef: MatDialogRef<DeleteDialogComponent>
+  ) 
+  {
+    super( dialogRef );
+  }
 
-  close(): void {
-    this.dialogRef.close();
+  override close(): void {
+    super.close();
   }
 
 }
